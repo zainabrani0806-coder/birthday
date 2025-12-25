@@ -6,15 +6,21 @@
 <title>Happy Birthday Sunil 🎂</title>
 
 <style>
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+}
+
 /* ===== BODY ===== */
 body {
   margin: 0;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: 'Segoe UI', sans-serif;
   overflow: hidden;
+
   background:
     linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
     url(background.avif);
@@ -39,13 +45,14 @@ body {
 
 /* ===== CARD ===== */
 .container {
-  width: 90%;
-  max-width: 480px;
-  padding: 40px;
+  width: 92%;
+  max-width: 460px;
+  min-height: 520px;
+  padding: 38px 30px;
   border-radius: 22px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.92);
   backdrop-filter: blur(18px);
-  box-shadow: 0 50px 100px rgba(0,0,0,0.45);
+  box-shadow: 0 40px 90px rgba(0,0,0,0.45);
   text-align: center;
   z-index: 5;
   animation: appear 1.2s ease;
@@ -57,18 +64,18 @@ body {
 }
 
 h1 {
-  font-size: 2.2em;
-  margin-bottom: 18px;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  margin-bottom: 16px;
 }
 
 /* ===== START IMAGE ===== */
 .pic-img {
-  width: 170px;
-  height: 170px;
+  width: min(170px, 45vw);
+  height: min(170px, 45vw);
   border-radius: 18px;
   margin: 15px auto 25px;
   overflow: hidden;
-  box-shadow: 0 25px 45px rgba(0,0,0,0.35);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.35);
   animation: softZoom 6s infinite alternate;
   transition: opacity 0.6s ease;
 }
@@ -86,20 +93,20 @@ h1 {
 
 /* ===== EYES IMAGE ===== */
 .eyes {
-  width: 150px;
-  height: 150px;
+  width: min(150px, 42vw);
+  height: min(150px, 42vw);
   border-radius: 50%;
-  margin: 25px auto;
+  margin: 22px auto;
   overflow: hidden;
   display: none;
   box-shadow:
-    0 0 35px rgba(255,105,180,0.9),
-    0 0 70px rgba(255,105,180,0.6);
+    0 0 30px rgba(255,105,180,0.8),
+    0 0 60px rgba(255,105,180,0.5);
   animation: eyeReveal 1.4s ease forwards;
 }
 
 @keyframes eyeReveal {
-  from { opacity: 0; transform: scale(0.5); }
+  from { opacity: 0; transform: scale(0.6); }
   to { opacity: 1; transform: scale(1); }
 }
 
@@ -111,42 +118,55 @@ h1 {
 
 /* ===== TEXT ===== */
 p {
-  font-size: 1.05em;
-  line-height: 1.9;
+  font-size: clamp(0.95rem, 3.8vw, 1.05rem);
+  line-height: 1.85;
   min-height: 140px;
   opacity: 0;
   transition: opacity 0.6s ease;
 }
 
-/* ===== BUTTONS ===== */
+/* ===== BUTTON ===== */
 button {
-  margin-top: 25px;
-  padding: 12px 34px;
+  margin-top: 22px;
+  padding: 14px 36px;
   border-radius: 30px;
   border: none;
   background: #ff4d6d;
   color: white;
+  font-size: 1rem;
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 button:hover {
-  transform: scale(1.06);
-  box-shadow: 0 15px 30px rgba(255,77,109,0.4);
+  transform: scale(1.05);
+  box-shadow: 0 12px 25px rgba(255,77,109,0.4);
 }
 
 /* ===== MUTE BUTTON ===== */
 .mute {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 14px;
+  right: 14px;
   background: rgba(0,0,0,0.6);
   color: white;
   border: none;
   padding: 8px 14px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 0.8em;
+  font-size: 0.85rem;
+}
+
+/* ===== MOBILE OPTIMIZATION ===== */
+@media (max-width: 600px) {
+  .particle {
+    display: none;
+  }
+
+  .container {
+    padding: 30px 22px;
+    min-height: 500px;
+  }
 }
 </style>
 </head>
@@ -160,7 +180,9 @@ button:hover {
 
 <!-- PARTICLES -->
 <script>
-for (let i = 0; i < 45; i++) {
+const particleCount = window.innerWidth < 600 ? 0 : 40;
+
+for (let i = 0; i < particleCount; i++) {
   const p = document.createElement("div");
   p.className = "particle";
   p.style.left = Math.random() * 100 + "vw";
@@ -210,7 +232,6 @@ const muteBtn = document.getElementById("muteBtn");
 
 music.volume = 0;
 
-/* Fade-in music */
 function fadeInMusic() {
   const interval = setInterval(() => {
     if (music.volume < 0.5) {
@@ -255,7 +276,6 @@ btn.addEventListener("click", () => {
   }
 });
 
-/* Mute Toggle */
 muteBtn.addEventListener("click", () => {
   music.muted = !music.muted;
   muteBtn.textContent = music.muted ? "🔇" : "🔊";
@@ -264,4 +284,3 @@ muteBtn.addEventListener("click", () => {
 
 </body>
 </html>
-
